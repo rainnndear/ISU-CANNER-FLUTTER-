@@ -6,7 +6,7 @@ import '../services/registration.dart';
 import '../screens/home_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({Key? key}) : super(key: key);
+  const RegistrationScreen({super.key});
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();

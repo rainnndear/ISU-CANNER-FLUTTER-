@@ -11,7 +11,7 @@ import '../screens/office_staff/staff_Homepage.dart';
 import '../screens/supplier/supplier_Homepage.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();

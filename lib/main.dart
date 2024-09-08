@@ -20,7 +20,7 @@ void main() async {
           selectionHandleColor: Colors.green, // Handle color when selecting text
         ),
       ),
-      home: isLoggedIn ? const MyApp() : const RegistrationScreen(), // Ensure the correct home screen is shown
+      home: isLoggedIn ? const MyApp() : const HomeScreen(), // Ensure the correct home screen is shown
     ),
   );
 }
