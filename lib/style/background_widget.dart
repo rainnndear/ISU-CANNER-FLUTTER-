@@ -8,22 +8,21 @@ class BackgroundWidget extends StatelessWidget {
     return Stack(
       children: [
         Positioned.fill(
-          child: ColorFiltered(
-            colorFilter: ColorFilter.mode(
-              Colors.green[600]!.withOpacity(0.6),
-              BlendMode.colorBurn,
-            ),
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/bg.jpg'),
-                  fit: BoxFit.cover,
-                ),
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/bg.jpg'), // Your background image
+                fit: BoxFit.cover,
               ),
             ),
           ),
         ),
-        // The actual background content or UI elements
+        Positioned.fill(
+          child: Container(
+            color: Colors.green[900]?.withOpacity(0.6), // Semi-transparent green overlay
+          ),
+        ),
+
       ],
     );
   }

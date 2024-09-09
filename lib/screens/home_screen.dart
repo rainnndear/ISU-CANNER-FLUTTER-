@@ -18,13 +18,13 @@ class HomeScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                
+
                 // Row containing the images
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset('assets/images/isu.png', width: 90, height: 90),
-                    const SizedBox(width: 90), 
+                    const SizedBox(width: 90),
                     Image.asset('assets/images/ict.png', width: 100, height: 100),
                   ],
                 ),
@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                   'Document Monitoring and Tracking System',
                   style: GoogleFonts.zillaSlab(
                     textStyle: const TextStyle(
-                      fontSize: 15,
+                      fontSize: 16,
                       color: Colors.yellow,
                       fontWeight: FontWeight.bold,
                     ),
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
                       );
                     },
                     child: const Text('LOGIN'),
@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 Container(
                   height: 5,
-                  width: 300,
+                  width: 320,
                   color: Colors.white,
                   margin: const EdgeInsets.symmetric(vertical: 10),
                 ),
