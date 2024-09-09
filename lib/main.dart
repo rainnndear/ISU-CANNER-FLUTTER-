@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Replace this with your actual app widget tree
     return const Scaffold();
 }
 }
