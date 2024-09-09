@@ -176,7 +176,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget _buildAccountTypeDropdown() {
     return DropdownButtonFormField<String>(
       decoration: greenInputDecoration('Account Type', 'Select your account type'),
-      items: <String>['Admin', 'User', 'Guest'].map((String value) {
+      items: <String>['Client', 'Supplier', 'Office Staff'].map((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
