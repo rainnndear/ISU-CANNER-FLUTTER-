@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                   'Document Monitoring and Tracking System',
                   style: GoogleFonts.zillaSlab(
                     textStyle: const TextStyle(
-                      fontSize: 15,
+                      fontSize: 16,
                       color: Colors.yellow,
                       fontWeight: FontWeight.bold,
                     ),

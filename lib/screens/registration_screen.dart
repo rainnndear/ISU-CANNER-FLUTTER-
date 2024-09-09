@@ -85,7 +85,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  // Build the app bar with a back button
   AppBar _buildAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,  // Removes the back button

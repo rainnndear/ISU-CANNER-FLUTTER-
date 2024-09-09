@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:isu_canner/screens/registration_screen.dart';
+import 'package:isu_canner/screens/forgot_pass_ui.dart';
+import 'package:isu_canner/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ void main() async {
           selectionHandleColor: Colors.green, // Handle color when selecting text
         ),
       ),
-      home: isLoggedIn ? const MyApp() : const HomeScreen(), // Ensure the correct home screen is shown
+      home: isLoggedIn ? const MyApp() : HomeScreen(), // Ensure the correct home screen is shown
     ),
   );
 }
@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Replace this with your actual app widget tree
     return const Scaffold();
   }
 }

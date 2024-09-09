@@ -22,7 +22,6 @@ class BackgroundWidget extends StatelessWidget {
             color: Colors.green[900]?.withOpacity(0.6), // Semi-transparent green overlay
           ),
         ),
-        // Add your content (logo, text, etc.) on top of the background
 
       ],
     );

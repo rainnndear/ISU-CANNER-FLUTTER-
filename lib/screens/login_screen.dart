@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:isu_canner/screens/forgot_pass_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/api_response.dart';
 import '../model/user.dart';
@@ -116,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
               width: 40,
               height: 40,
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 9),
             const Text(
               'ISU-CANNER',
               style: TextStyle(
@@ -215,8 +216,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextButton(
               onPressed: () {
-                // Handle "Forgot Password" action here
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => ForgotPasswordScreen()), // Replace with your LoginPage widget
+                );
               },
+
               child: const Text('Forgot Password?', style: TextStyle(color: Colors.green)),
             ),
           ],
