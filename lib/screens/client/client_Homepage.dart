@@ -6,7 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 class ClientHomepage extends StatefulWidget {
   final User user;
 
-  const ClientHomepage({Key? key, required this.user}) : super(key: key);
+  const ClientHomepage({super.key, required this.user});
 
   @override
   State<ClientHomepage> createState() => _ClientHomepageState();
@@ -44,7 +44,7 @@ class _ClientHomepageState extends State<ClientHomepage> {
               size: 200.0, // Size of the QR code
             ),
             const SizedBox(height: 20),
-            Text('Scan this QR code for user details'),
+            const Text('Scan this QR code for user details'),
           ],
         ),
       ),

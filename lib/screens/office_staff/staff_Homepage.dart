@@ -5,7 +5,7 @@ import 'package:isu_canner/model/user.dart';
 class StaffHomepage extends StatefulWidget {
   final User user; 
 
-  const StaffHomepage({Key? key, required this.user}) : super(key: key);
+  const StaffHomepage({super.key, required this.user});
 
   @override
   State<StaffHomepage> createState() => _StaffHomepageState();
