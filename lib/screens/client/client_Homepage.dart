@@ -1,13 +1,15 @@
-// lib/pages/client_homepage.dart
-
 import 'package:flutter/material.dart';
+import 'package:isu_canner/screens/client/file.dart';
 import 'package:isu_canner/screens/home_screen.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import '../../custom_app_bar.dart';
-import '../../custom_bottom_navigation.dart';
-import '../../custom_drawer.dart';
-import '../../menu_page.dart';
- // Import the new file
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../model/api_response.dart';
+import '../../services/filepdf.dart';
+import '../../style/custom_app_bar.dart';
+import '../../style/custom_bottom_navigation.dart';
+import '../../style/custom_drawer.dart'; // Ensure this import is present
+import '../../style/custom_profile.dart';
+import '../../style/menu_page.dart';
 import '../../model/user.dart';
 import '../../services/logout.dart';
 
@@ -23,7 +25,6 @@ class ClientHomepage extends StatefulWidget {
 class _ClientHomepageState extends State<ClientHomepage> {
   bool _isSearching = false; // Controls whether the search bar is visible
   int _selectedIndex = 0; // Track the selected bottom navigation index
-
   // List of widgets to display for each tab
   final List<Widget> _pages = [];
 
@@ -37,63 +38,26 @@ class _ClientHomepageState extends State<ClientHomepage> {
     ]);
   }
 
+
+
   // Function to build the Home page content
   Widget _buildHomePage() {
-    String userDetails = 'Name: ${widget.user.firstname} ${widget.user.lastname}\n'
-        'Email: ${widget.user.email}';
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Welcome',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                '${widget.user.email}!',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Center(
-            child: Transform.translate(
-              offset: const Offset(0, -100),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Hello, ${widget.user.firstname} ${widget.user.lastname}'),
-                  const SizedBox(height: 20),
-                  QrImageView(
-                    data: userDetails,
-                    version: QrVersions.auto,
-                    size: 200.0,
-                  ),
-                  const SizedBox(height: 20),
-                  Text('Scan this QR code for user details'),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
+    return Center(
+      child: ElevatedButton(
+        child: const Text('Task List'),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const File()),
+          );
+        },
+      ),
     );
   }
 
   // Function to build the Notification page content
   Widget _buildNotificationPage() {
-    return Center(
+    return  Center(
       child: Text(
         'Notifications',
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -102,10 +66,21 @@ class _ClientHomepageState extends State<ClientHomepage> {
   }
 
   // Function to build the Menu page content
+// In the ClientHomepage class
+
+// Modify the _buildMenuPage function
   Widget _buildMenuPage() {
     return MenuPage(
       onProfileSelected: () {
-        // Navigate to Profile page or perform profile action
+        // Pass the user data to ClientProfile
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ClientProfile(
+              user: widget.user, // Use the user passed to ClientHomepage
+            ),
+          ),
+        );
       },
       onHelpSelected: () {
         // Navigate to Help & Support page or perform help action
@@ -114,12 +89,14 @@ class _ClientHomepageState extends State<ClientHomepage> {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => HomeScreen()), // Replace with your actual Settings & Privacy page
-        );      },
+        );
+      },
       onLogoutSelected: () async {
         await logout(context);
       },
     );
   }
+
 
   // Function to handle bottom navigation item selection
   void _onItemTapped(int index) {
@@ -139,7 +116,9 @@ class _ClientHomepageState extends State<ClientHomepage> {
           });
         },
       ),
+      // Use the drawer property of Scaffold to show the custom drawer
       drawer: ClientCustomDrawer(),
+
       body: _pages[_selectedIndex], // Display the selected page content
       bottomNavigationBar: ClientCustomBottomNavigationBar(
         selectedIndex: _selectedIndex,

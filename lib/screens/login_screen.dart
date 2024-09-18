@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     Widget homepage;
     switch (user.account_type) {
-      case 'office_staff':
+      case 'office staff':
         homepage = StaffHomepage(user: user);
         break;
       case 'client':
@@ -67,7 +67,13 @@ class _LoginScreenState extends State<LoginScreen> {
       ApiResponse response = await login(_emailController.text, _passwordController.text);
 
       if (response.error == null) {
-        await _saveAndRedirectToHome(response.data as User);
+        User user = response.data as User;
+
+        // Log the user account type to debug
+        print('User account type: ${user.account_type}');
+
+        // Redirect to the appropriate homepage
+        await _saveAndRedirectToHome(user);
       } else {
         _showErrorSnackBar(response.error ?? 'An error occurred');
       }
@@ -75,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() => _isLoading = false);
     }
   }
+
 
   void _showErrorSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));

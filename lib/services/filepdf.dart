@@ -4,14 +4,18 @@ import '../model/api_response.dart';
 import '../variables/ip_address.dart';
 import 'package:http/http.dart' as http;
 
-Future<ApiResponse> getFiles() async {
+Future<ApiResponse> getFiles(String? token) async {
 
   ApiResponse apiResponse = ApiResponse();
 
   try {
 
     final response = await http.get(
-      Uri.parse('$ipaddress/client_file'),
+        Uri.parse('$ipaddress/client_file'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization':'Bearer $token'
+        }
     );
 
     switch(response.statusCode){
@@ -26,11 +30,13 @@ Future<ApiResponse> getFiles() async {
         apiResponse.error = jsonDecode(response.body)['message'];
         break;
       default:
+        print('Error: ${response.body}');  // Log the error response for debugging
         apiResponse.error = 'Something went wrong.';
         break;
     }
 
   } catch(e){
+    print('Exception: $e');  // Log any exceptions for debugging
     apiResponse.error = 'Something went wrong.';
   }
 

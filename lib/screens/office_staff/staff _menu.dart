@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:isu_canner/model/user.dart';
-
-import '../../services/logout.dart';
+import 'package:isu_canner/screens/home_screen.dart';
 import '../../style/custom_app_bar.dart';
 import '../../style/custom_bottom_navigation.dart';
-import '../../style/custom_drawer.dart';
+import '../../style/custom_drawer.dart'; // Ensure this import is present
 import '../../style/custom_profile.dart';
 import '../../style/menu_page.dart';
-import '../home_screen.dart';
+import '../../model/user.dart';
+import '../../services/logout.dart';
 
-class SupplierHomepage extends StatefulWidget {
+class ClientHomepage extends StatefulWidget {
   final User user;
 
-  const SupplierHomepage({super.key, required this.user});
+  const ClientHomepage({super.key, required this.user});
 
   @override
-  State<SupplierHomepage> createState() => _SupplierHomepageState();
+  State<ClientHomepage> createState() => _ClientHomepageState();
 }
 
-class _SupplierHomepageState extends State<SupplierHomepage> {
+class _ClientHomepageState extends State<ClientHomepage> {
   bool _isSearching = false; // Controls whether the search bar is visible
   int _selectedIndex = 0; // Track the selected bottom navigation index
   // List of widgets to display for each tab
@@ -36,21 +35,13 @@ class _SupplierHomepageState extends State<SupplierHomepage> {
 
   // Function to build the Home page content
   Widget _buildHomePage() {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(top: 20.0, left: 160.0), // Adjust the padding to move it down from the top
-          child: Text(
-            'ORDER',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ],
+    return const Center(
+      child: Text(
+        'Home page',
+        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      ),
     );
   }
-
 
   // Function to build the Notification page content
   Widget _buildNotificationPage() {
@@ -73,7 +64,7 @@ class _SupplierHomepageState extends State<SupplierHomepage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SupplierProfile(
+            builder: (context) => ClientProfile(
               user: widget.user, // Use the user passed to ClientHomepage
             ),
           ),
@@ -85,7 +76,7 @@ class _SupplierHomepageState extends State<SupplierHomepage> {
       onSettingsSelected: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()), // Replace with your actual Settings & Privacy page
+          MaterialPageRoute(builder: (context) =>  const HomeScreen()), // Replace with your actual Settings & Privacy page
         );
       },
       onLogoutSelected: () async {
@@ -105,7 +96,7 @@ class _SupplierHomepageState extends State<SupplierHomepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SupplierCustomAppBar(
+      appBar: ClientCustomAppBar(
         isSearching: _isSearching,
         onSearchToggle: (isSearching) {
           setState(() {
@@ -113,10 +104,11 @@ class _SupplierHomepageState extends State<SupplierHomepage> {
           });
         },
       ),
+      // Use the drawer property of Scaffold to show the custom drawer
+      drawer: const ClientCustomDrawer(),
 
-      drawer:const SupplierCustomDrawer(),
       body: _pages[_selectedIndex], // Display the selected page content
-      bottomNavigationBar: SupplierCustomBottomNavigationBar(
+      bottomNavigationBar: ClientCustomBottomNavigationBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
