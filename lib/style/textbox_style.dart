@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 InputDecoration textBoxStyle(String hintText, String label) {
   return InputDecoration(
       hintText: hintText,
-      label: Text(label),
+      labelText: label,
       border: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.greenAccent, width: 5.0),
       )
@@ -23,48 +23,22 @@ TextStyle myTextStyle(){
 InputDecoration greenInputDecoration(String labelText, String hintText) {
   return InputDecoration(
     labelText: labelText,
-    labelStyle: const TextStyle(color: Colors.green), // Change label text to green
+    labelStyle: const TextStyle(color: Colors.green), 
     hintText: hintText,
-    hintStyle: const TextStyle(color: Colors.green), // Change hint text to green
+    hintStyle: const TextStyle(color: Colors.green),
     enabledBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.green, width: 2.0), // Green border when not focused
+      borderSide: BorderSide(color: Colors.green, width: 2.0), 
     ),
     focusedBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.green, width: 2.0), // Green border when focused
+      borderSide: BorderSide(color: Colors.green, width: 2.0),
     ),
     errorBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.red, width: 2.0), // Red border for error state
+      borderSide: BorderSide(color: Colors.red, width: 2.0), 
     ),
     focusedErrorBorder: const OutlineInputBorder(
       borderSide: BorderSide(color: Colors.red, width: 2.0),
     ),
-    suffixIconColor: Colors.green, // Suffix icon color
+    suffixIconColor: Colors.green, 
   );
 }
-
-InputDecoration greenInputDecoration1({required String labelText, required String hintText}) {
-  return InputDecoration(
-    labelText: labelText,
-    labelStyle: const TextStyle(color: Colors.green), // Change label text to green
-    hintText: hintText,
-    hintStyle: const TextStyle(color: Colors.green), // Change hint text to green
-    enabledBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.green, width: 2.0), // Green border when not focused
-    ),
-    focusedBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.green, width: 2.0), // Green border when focused
-    ),
-    errorBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.red, width: 2.0), // Red border for error state
-    ),
-    focusedErrorBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.red, width: 2.0),
-    ),
-    suffixIconColor: Colors.green, // Suffix icon color
-  );
-}
-
-
-
-
 

@@ -40,7 +40,8 @@ dependencies:
   shared_preferences: ^2.3.2
   google_fonts: ^6.2.1
   qr_flutter: ^4.1.0
-
+  path_provider: ^2.1.4  
+  open_file: ^3.5.3
 
 dev_dependencies:
   flutter_test:
@@ -53,12 +54,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
   get: ^4.6.6
-  flutter_line_sdk: ^2.3.8
-  url_launcher: ^6.3.0
-  image_picker: ^1.1.2
   pdf: ^3.11.1
-  path_provider: ^2.1.4  
-  process_run: ^1.2.0
 
 
 # For information on the generic Dart part of this file, see the

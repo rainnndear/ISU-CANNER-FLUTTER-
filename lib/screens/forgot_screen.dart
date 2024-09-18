@@ -32,7 +32,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     setState(() => _isLoading = true);
 
     // Simulate a network call
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     // Navigate to VerificationScreen after resetting
     Navigator.push(
@@ -112,9 +112,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   AppBar _buildAppBar() {
     return AppBar(
       leading: Transform.translate(
-        offset: Offset(0, 0), // Adjust the icon's position if needed
+        offset: const Offset(0, 0), // Adjust the icon's position if needed
         child: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.white, // Custom green color
           ),
@@ -128,7 +128,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       title: Row(
         children: [
           Transform.translate(
-            offset: Offset(-20, 0), // Moves the image 20 units to the left
+            offset: const Offset(-20, 0), // Moves the image 20 units to the left
             child: Image.asset(
               'assets/images/isu.png',
               width: 40,
@@ -137,7 +137,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
           const SizedBox(width: 9),
           Transform.translate(
-            offset: Offset(-20, 0), // Moves the text 20 units to the left
+            offset: const Offset(-20, 0), // Moves the text 20 units to the left
             child: const Text(
               'ISU-CANNER',
               style: TextStyle(
@@ -160,9 +160,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         border: const OutlineInputBorder(),
         labelText: 'Email or Phone',
         hintText: 'Enter your email or phone',
-        labelStyle: TextStyle(color: Colors.black), // Change label color
+        labelStyle: const TextStyle(color: Colors.black), // Change label color
         hintStyle: TextStyle(color: Colors.green.shade600), // Change hint text color
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.email_outlined,
           color: Colors.green, // Change prefix icon color
         ),
@@ -184,7 +184,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         onPressed: _isLoading ? null : _resetPassword,
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
-          backgroundColor: Color(0xFF08811D), // Replace with your desired color
+          backgroundColor: const Color(0xFF08811D), // Replace with your desired color
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -203,9 +203,9 @@ class MethodSelectionScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Transform.translate(
-          offset: Offset(0, 0), // Adjust the icon's position if needed
+          offset: const Offset(0, 0), // Adjust the icon's position if needed
           child: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.white, // Custom white color for the back icon
             ),
@@ -219,7 +219,7 @@ class MethodSelectionScreen extends StatelessWidget {
         title: Row(
           children: [
             Transform.translate(
-              offset: Offset(-20, 0), // Moves the image 20 units to the left
+              offset: const Offset(-20, 0), // Moves the image 20 units to the left
               child: Image.asset(
                 'assets/images/isu.png',
                 width: 40,
@@ -228,7 +228,7 @@ class MethodSelectionScreen extends StatelessWidget {
             ),
             const SizedBox(width: 9),
             Transform.translate(
-              offset: Offset(-20, 0), // Moves the text 20 units to the left
+              offset: const Offset(-20, 0), // Moves the text 20 units to the left
               child: const Text(
                 'ISU-CANNER',
                 style: TextStyle(
@@ -246,7 +246,7 @@ class MethodSelectionScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Transform.translate(
-            offset: Offset(-120, -20), // Move the title up by 10 units
+            offset: const Offset(-120, -20), // Move the title up by 10 units
             child: const Text(
               'MAKE\nSELECTION', // Your text here
               style: TextStyle(
@@ -257,7 +257,7 @@ class MethodSelectionScreen extends StatelessWidget {
             ),
           ),
           Transform.translate(
-            offset: Offset(-25, -15), // Move the description down by 5 units
+            offset: const Offset(-25, -15), // Move the description down by 5 units
             child: const Text(
               'Select which contact detail should we use to \nreset your password',
               textAlign: TextAlign.start, // Left align the text
@@ -307,9 +307,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Transform.translate(
-          offset: Offset(0, 0),
+          offset: const Offset(0, 0),
           child: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.white,
             ),
@@ -356,7 +356,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     controller: _codeControllers[index],
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                     ),
                     maxLength: 1,
@@ -395,9 +395,9 @@ class NewCredentialsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Transform.translate(
-          offset: Offset(0, 0), // Adjust the icon's position if needed
+          offset: const Offset(0, 0), // Adjust the icon's position if needed
           child: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.white, // Custom green color
             ),
@@ -412,7 +412,7 @@ class NewCredentialsScreen extends StatelessWidget {
         title: Row(
           children: [
             Transform.translate(
-              offset: Offset(-20, 0), // Moves the image 20 units to the left
+              offset: const Offset(-20, 0), // Moves the image 20 units to the left
               child: Image.asset(
                 'assets/images/isu.png',
                 width: 40,
@@ -421,7 +421,7 @@ class NewCredentialsScreen extends StatelessWidget {
             ),
             const SizedBox(width: 9),
             Transform.translate(
-              offset: Offset(-20, 0), // Moves the text 20 units to the left
+              offset: const Offset(-20, 0), // Moves the text 20 units to the left
               child: const Text(
                 'ISU-CANNER',
                 style: TextStyle(
@@ -441,7 +441,7 @@ class NewCredentialsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            Column(
+            const Column(
               children: [
                 Stack(
                   alignment: Alignment.center, // Centers the icons on top of each other
@@ -472,19 +472,15 @@ class NewCredentialsScreen extends StatelessWidget {
             ),
 
             TextField(
-              decoration: greenInputDecoration1(
-                labelText: 'New Password',
-                hintText: 'Enter new password',
-              ),
+                  decoration: greenInputDecoration("New Password", "Enter New Password"),  // Using textBoxStyle here
+
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
-              decoration: greenInputDecoration1(
-                labelText: 'Confirm Password',
-                hintText: 'Re-enter your password',
-              ),
+              decoration: greenInputDecoration("Password Confirmation", "Confirm New Password"),  // Using textBoxStyle here
+
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -492,7 +488,7 @@ class NewCredentialsScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => PasswordUpdatedScreen()),
                 );
               },
-              child: Text('Update'),
+              child: const Text('Update'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.green,
@@ -514,7 +510,7 @@ class PasswordUpdatedScreen extends StatelessWidget {
         title: Row(
           children: [
             Transform.translate(
-              offset: Offset(-10, 0), // Moves the image 20 units to the left
+              offset: const Offset(-10, 0), // Moves the image 20 units to the left
               child: Image.asset(
                 'assets/images/isu.png',
                 width: 40,
@@ -523,7 +519,7 @@ class PasswordUpdatedScreen extends StatelessWidget {
             ),
             const SizedBox(width: 9),
             Transform.translate(
-              offset: Offset(-20, 0), // Moves the text 20 units to the left
+              offset: const Offset(-20, 0), // Moves the text 20 units to the left
               child: const Text(
                 'ISU-CANNER',
                 style: TextStyle(
@@ -539,7 +535,7 @@ class PasswordUpdatedScreen extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(20), // Padding around the content
+          padding: const EdgeInsets.all(20), // Padding around the content
           decoration: BoxDecoration(
             color: Colors.green, // Set the background color to green
             borderRadius: BorderRadius.circular(12), // Rounded corners
@@ -550,7 +546,7 @@ class PasswordUpdatedScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min, // Makes the column take only the required space
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'PASSWORD\nUPDATED', // Your text here
                 style: TextStyle(
                   fontSize: 46, // Adjust the font size as needed
@@ -559,25 +555,25 @@ class PasswordUpdatedScreen extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center, // Center align the text
               ),
-              Icon(Icons.check_circle, size: 100, color: Colors.black),
-              SizedBox(height: 20),
-              Text(
+              const Icon(Icons.check_circle, size: 100, color: Colors.black),
+              const SizedBox(height: 20),
+              const Text(
                 'Your password has been updated',
                 style: TextStyle(color: Colors.black), // Optional: Style the text
                 textAlign: TextAlign.center, // Center align the text
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) =>  LoginScreen()),
+                    MaterialPageRoute(builder: (_) =>  const LoginScreen()),
                   );
                 },
-                child: Text('Login'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.green.shade900,
                 ),
+                child: const Text('Login'),
               ),
             ],
           ),

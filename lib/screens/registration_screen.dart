@@ -1,9 +1,8 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:isu_canner/screens/login_screen.dart';
-import '../style/textbox_style.dart';
+import 'package:isu_canner/screens/home_screen.dart';
+import '../model/api_response.dart';
 import '../services/registration.dart';
-import '../screens/home_screen.dart';
+import '../style/textbox_style.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -13,227 +12,239 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  // Form key for validation
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // Controllers for text fields
-  final Map<String, TextEditingController> _controllers = {
-    'lastname': TextEditingController(),
-    'firstname': TextEditingController(),
-    'middlename': TextEditingController(),
-    'department': TextEditingController(),
-    'email': TextEditingController(),
-    'password': TextEditingController(),
-    'confirm_password': TextEditingController(),
-  };
+  final TextEditingController _lastnameController = TextEditingController();
+  final TextEditingController _firstnameController = TextEditingController();
+  final TextEditingController _middlenameController = TextEditingController();
+  String _selectedaccountType = 'client'; 
+  final TextEditingController _departmentController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmpasswordController = TextEditingController();
 
-  // Selected account type
-  String _selectedAccountType = 'client';
+  Future<void> registerUser() async {
+    try {
+      ApiResponse response = await register(
+        _lastnameController.text,
+        _firstnameController.text,
+        _middlenameController.text,
+        _selectedaccountType,  
+        _departmentController.text,
+        _emailController.text,
+        _passwordController.text,
+        _confirmpasswordController.text,
+      );
+
+      if (!mounted) return; // Check if widget is still mounted
+
+      if (response.error == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Registered successfully')),
+        );
+        await Future.delayed(const Duration(seconds: 2));
+        Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Registration Failed: ${response.error}')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('An unexpected error occurred')),
+        );
+      }
+    }
+  }
 
   @override
   void dispose() {
-    _controllers.values.forEach((controller) => controller.dispose());
+    // Dispose controllers when the widget is removed from the tree
+    _lastnameController.dispose();
+    _firstnameController.dispose();
+    _middlenameController.dispose();
+    _departmentController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmpasswordController.dispose();
     super.dispose();
-  }
-
-  Future<void> _registerUser() async {
-    // Validate the form
-    if (!_formKey.currentState!.validate()) return;
-
-    // Attempt to register the user
-    final response = await register(
-      _controllers['lastname']!.text,
-      _controllers['firstname']!.text,
-      _controllers['middlename']!.text,
-      _selectedAccountType,
-      _controllers['department']!.text,
-      _controllers['email']!.text,
-      _controllers['password']!.text,
-      _controllers['confirm_password']!.text,
-    );
-
-    // Show success or error message
-    _showSnackBar(response.error == null
-        ? 'REGISTERED SUCCESSFULLY'
-        : 'Registration failed: ${response.error}');
-  }
-
-  void _showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              ..._buildInputFields(),
-              const SizedBox(height: 20),
-              _buildSubmitButton(),
-              const SizedBox(height: 20),
-              _loginButton(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      automaticallyImplyLeading: false,  // Removes the back button
-      title: Row(
-        children: [
-          Image.asset(
-            'assets/images/isu.png',
-            width: 40,
-            height: 40,
-          ),
-          const SizedBox(width: 8),
-          const Text(
-            'ISU-CANNER',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.amber,
+      appBar: AppBar(
+        title: Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                );
+              },
             ),
-          ),
-        ],
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.green[900],
-    );
-  }
-
-
-  // Build all input fields including text fields and dropdown
-  List<Widget> _buildInputFields() {
-    return [
-      _buildTextField('lastname', 'Enter your lastname', 'Lastname is required'),
-      _buildTextField('firstname', 'Enter your firstname', 'Firstname is required'),
-      _buildTextField('middlename', 'Enter your middlename', 'Middlename is required'),
-      _buildAccountTypeDropdown(),
-      _buildTextField('department', 'Enter your department', 'Department is required'),
-      _buildTextField('email', 'Enter your email', 'Email is required'),
-      _buildPasswordField(),
-      _buildTextField('confirm_password', 'Confirm your password', 'Password confirmation is required'),
-      const SizedBox(height: 10),
-    ];
-  }
-
-
-
-
-  // Build a generic text field
-  Widget _buildTextField(String field, String hint, String errorMessage) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: TextFormField(
-        controller: _controllers[field],  // Controller for managing text input
-        decoration: greenInputDecoration(field, hint),  // Apply custom greenInputDecoration
-        validator: (value) => value?.isEmpty ?? true ? errorMessage : null,  // Validation
-      ),
-    );
-  }
-
-
-  // Build the password field with special validation
-  Widget _buildPasswordField() {
-    return TextFormField(
-      decoration: greenInputDecoration('Password', 'Enter your password'),
-      obscureText: true,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Password is required';
-        }
-        return null;
-      },
-    );
-  }
-
-
-  // Validate the password
-  String? _validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password is required';
-    } else if (value.length < 8) {
-      return 'Password must be at least 8 characters';
-    } else if (!RegExp(r'[A-Z]').hasMatch(value)) {
-      return 'Password must contain at least 1 uppercase letter';
-    } else if (!RegExp(r'\d').hasMatch(value)) {
-      return 'Password must contain at least 1 number';
-    }
-    return null;
-  }
-
-  // Build the account type dropdown
-  Widget _buildAccountTypeDropdown() {
-    return DropdownButtonFormField<String>(
-      decoration: greenInputDecoration('Account Type', 'Select your account type'),
-      items: <String>['Client', 'Supplier', 'Office Staff'].map((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      onChanged: (String? newValue) {},
-      validator: (value) => value == null ? 'Account type is required' : null,
-    );
-  }
-
-
-  // Build the submit button
-  Widget _buildSubmitButton() {
-    return SizedBox(
-      width: double.infinity,  // Full width
-      height: 50,  // Button height
-      child: ElevatedButton(
-        onPressed: _registerUser,  // Action on button press
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white, backgroundColor: Colors.green,  // Set text color to white
-          textStyle: const TextStyle(fontSize: 16),  // Customize text size
+            Image.asset(
+              'assets/images/isu.png',  // Image asset in your project
+              width: 40,
+              height: 40,
+            ),
+            const SizedBox(width: 8),
+            const Text(
+              'ISU-CANNER',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.amber,
+              ),
+            ),
+          ],
         ),
-        child: const Text('Register'),
+        centerTitle: true,
+        backgroundColor: Colors.green[900],
       ),
-    );
-  }
-
-  Widget _loginButton() {
-    return Align(
-      alignment: Alignment.centerLeft, // Aligns the text to the start (left)
-      child: Column(
-        children: [
-          RichText(
-            text: TextSpan(
-              style: const TextStyle(fontSize: 16, color: Colors.black), // Default text style
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            top: 100,
+            left: 20,
+            right: 20,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 20, // Adjust for keyboard
+          ),
+          child: Form(
+            key: formKey,
+            child: Column(
               children: [
-                const TextSpan(
-                  text: "Do have an account? Try to login ",
-                ),
-                TextSpan(
-                  text: "here.",
-                  style: const TextStyle(
-                    color: Colors.green, // Color to indicate it's clickable
-                    decoration: TextDecoration.none, // No underline
-                  ),
-                  recognizer: TapGestureRecognizer()..onTap = () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const LoginScreen()),
-                    );
+                TextFormField(
+                  controller: _lastnameController,
+                  decoration: greenInputDecoration("LastName", "Your Lastname"),  // Using textBoxStyle here
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'LASTNAME IS REQUIRED!';
+                    }
+                    return null;
                   },
+                ),
+                const Divider(),
+                TextFormField(
+                  controller: _firstnameController,
+                  decoration: greenInputDecoration("FirstName", "Your Firstname"),  // Using textBoxStyle here
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'FIRSTNAME IS REQUIRED!';
+                    }
+                    return null;
+                  },
+                ),
+                const Divider(),
+                TextFormField(
+                  controller: _middlenameController,
+                  decoration: greenInputDecoration("MiddleName", "Your Middlename"),  // Using textBoxStyle here
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'MIDDLENAME IS REQUIRED!';
+                    }
+                    return null;
+                  },
+                ),
+                const Divider(),
+                DropdownButtonFormField<String>(
+                  value: _selectedaccountType,
+                  decoration: const InputDecoration(
+                    labelText: "Select User Type",
+                    border: OutlineInputBorder(),
+                  ),
+                  items: [
+                    {'display': 'Client', 'value': 'client'},
+                    {'display': 'Office Staff', 'value': 'office staff'},
+                    {'display': 'Supplier', 'value': 'supplier'},
+                  ].map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item['value'],
+                      child: Text(item['display']!),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedaccountType = newValue!;
+                    });
+                  },
+                ),
+                const Divider(),
+                TextFormField(
+                  controller: _departmentController,
+                  decoration: greenInputDecoration("Department", "Your Department Eg. CCSICT"),  // Using textBoxStyle here
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'PLEASE ENTER YOUR DEPARTMENT!';
+                    }
+                    return null;
+                  },
+                ),
+                const Divider(),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: greenInputDecoration("Email", "example@email.com"),  // Using textBoxStyle here
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'PLEASE ENTER YOUR EMAIL';
+                    }
+                    return null;
+                  },
+                ),
+                const Divider(),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: greenInputDecoration("Password", "Your Password"),  // Using textBoxStyle here
+                  obscureText: true,
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'PLEASE ENTER YOUR PASSWORD!';
+                    } else if (value.length < 8) {
+                      return 'PASSWORD MUST BE AT LEAST 8 CHARACTERS!';
+                    } else if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                      return 'PASSWORD MUST CONTAIN AT LEAST 1 UPPERCASE LETTER!';
+                    } else if (!RegExp(r'\d').hasMatch(value)) {
+                      return 'PASSWORD MUST CONTAIN AT LEAST 1 NUMBER!';
+                    }
+                    return null;
+                  },
+                ),
+                const Divider(),
+                TextFormField(
+                  controller: _confirmpasswordController,
+                  decoration: greenInputDecoration("Password Confimation", "Confirm your Password"), 
+                  obscureText: true,
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'PASSWORD CONFIRMATION IS REQUIRED!';
+                    } else if (value != _passwordController.text) {
+                      return 'PASSWORDS DO NOT MATCH!';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                  ),
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      registerUser();
+                    }
+                  },
+                  child: const Text('Submit'),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
-
 }
