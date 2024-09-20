@@ -8,26 +8,26 @@ import '../../variables/ip_address.dart';
 
 class DownloadAndViewPdfPage extends StatefulWidget {
   final String filename;
-  const DownloadAndViewPdfPage({Key? key, required this.filename}) : super(key: key);
+  const DownloadAndViewPdfPage({super.key, required this.filename});
+
   @override
   _DownloadAndViewPdfPageState createState() => _DownloadAndViewPdfPageState();
 }
 
-Future<void> _requestPermissions() async {
-  if (await Permission.storage.isDenied) {
-    await Permission.storage.request();
-  }
-}
-
-
 class _DownloadAndViewPdfPageState extends State<DownloadAndViewPdfPage> {
   String? localFilePath;
-  bool isDownloading = false;
+  bool isDownloading = true;
 
   @override
   void initState() {
     super.initState();
     _downloadAndViewPdf();
+  }
+
+  Future<void> _requestPermissions() async {
+    if (await Permission.storage.isDenied) {
+      await Permission.storage.request();
+    }
   }
 
   Future<void> _downloadAndViewPdf() async {
@@ -37,33 +37,42 @@ class _DownloadAndViewPdfPageState extends State<DownloadAndViewPdfPage> {
     var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
-      var bytes = response.bodyBytes;
+      try {
+        var bytes = response.bodyBytes;
+        Directory dir = await _getStorageDirectory();
+        String filePath = '${dir.path}/${widget.filename}';
+        File file = File(filePath);
 
-      // Get the external storage directory (for Android 14+)
-      Directory? dir = await getExternalStorageDirectory();
-      dir ??= await getApplicationDocumentsDirectory();
+        await file.writeAsBytes(bytes, flush: true);
 
-      String filePath = '${dir.path}/${widget.filename}';
-      File file = File(filePath);
+        setState(() {
+          localFilePath = filePath;
+          isDownloading = false;
+        });
 
-      // Write the downloaded PDF to file
-      await file.writeAsBytes(bytes, flush: true);
-
-      setState(() {
-        localFilePath = filePath;
-        isDownloading = false;
-      });
-
-      // Open the PDF file
-      OpenFile.open(localFilePath!);
+        OpenFile.open(localFilePath!);
+      } catch (e) {
+        _handleError(e);
+      }
     } else {
-      setState(() {
-        isDownloading = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to download PDF: ${response.statusCode}')),
-      );
+      _handleError('Failed to download PDF: ${response.statusCode}');
     }
+  }
+
+  Future<Directory> _getStorageDirectory() async {
+    if (Platform.isAndroid && await Permission.storage.isGranted) {
+      return await getExternalStorageDirectory() ?? getApplicationDocumentsDirectory();
+    }
+    return await getApplicationDocumentsDirectory();
+  }
+
+  void _handleError(dynamic error) {
+    setState(() {
+      isDownloading = false;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('$error')),
+    );
   }
 
   @override

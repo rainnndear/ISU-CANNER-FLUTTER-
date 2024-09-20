@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:isu_canner/screens/home_screen.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import '../../custom_app_bar.dart';
-import '../../custom_bottom_navigation.dart';
-import '../../custom_drawer.dart';
-import '../../menu_page.dart';
+import '../../style/custom_app_bar.dart';
+import '../../style/custom_bottom_navigation.dart';
+import '../../style/custom_drawer.dart';
+import '../../style/menu_page.dart';
  // Import the new file
 import '../../model/user.dart';
 import '../../services/logout.dart';
@@ -49,7 +49,7 @@ class _ClientHomepageState extends State<ClientHomepage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Welcome',
                 style: TextStyle(
                   fontSize: 24,
@@ -58,7 +58,7 @@ class _ClientHomepageState extends State<ClientHomepage> {
               ),
               Text(
                 '${widget.user.email}!',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -81,7 +81,7 @@ class _ClientHomepageState extends State<ClientHomepage> {
                     size: 200.0,
                   ),
                   const SizedBox(height: 20),
-                  Text('Scan this QR code for user details'),
+                  const Text('Scan this QR code for user details'),
                 ],
               ),
             ),

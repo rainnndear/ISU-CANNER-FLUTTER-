@@ -108,7 +108,7 @@ class _UserState extends State<File> {
                                     MaterialPageRoute(
                                       builder: (context) => FileContentScreen(
                                         filePath: files['pdfUrl'],
-                                        fileType: files['type'],
+                                        fileType: files['type'], qrData: '',
                                       ),
                                     ),
                                   );
