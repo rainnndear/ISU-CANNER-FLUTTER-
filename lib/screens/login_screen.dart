@@ -8,7 +8,6 @@ import '../style/textbox_style.dart';
 import '../screens/registration_screen.dart';
 import '../screens/client/client_Homepage.dart';
 import '../screens/office_staff/staff_Homepage.dart';
-import '../screens/supplier/supplier_Homepage.dart';
 import 'forgot_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -33,30 +32,29 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  Future<void> _saveAndRedirectToHome(User user) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', user.token ?? '');
-    await prefs.setInt('userId', user.id ?? 0);
+Future<void> _saveAndRedirectToHome(User user) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('token', user.token ?? '');
+  await prefs.setInt('userId', user.id ?? 0);
+  await prefs.setString('account_type', user.account_type ?? ''); 
 
-    Widget homepage;
-    switch (user.account_type) {
-      case 'office_staff':
-        homepage = StaffHomepage(user: user);
-        break;
-      case 'client':
-        homepage = ClientHomepage(user: user);
-        break;
-      case 'supplier':
-        homepage = SupplierHomepage(user: user);
-        break;
-      default:
-        return; // Handle unexpected account type
-    }
-
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => homepage),
-    );
+  Widget homepage;
+  switch (user.account_type) {
+    case 'office staff':
+      homepage = StaffHomepage(user: user);
+      break;
+    case 'client':
+      homepage = ClientHomepage(user: user);
+      break;
+    default:
+      _showErrorSnackBar("Invalid account type"); 
+      return;
   }
+
+  Navigator.of(context).pushReplacement(
+    MaterialPageRoute(builder: (_) => homepage),
+  );
+}
 
   Future<void> _loginUser() async {
     if (!_formKey.currentState!.validate()) return;
