@@ -1,0 +1,7 @@
+{
+    "editor.suggest.preview": true,
+    "editor.suggest.shareSuggestSelections": true,
+    "editor.suggest.showStatusBar": true,
+    "github.copilot.chat.experimental.inlineChatCompletionTrigger.enabled": false,
+    "editor.experimentalInlineEdit.enabled": false
+}
