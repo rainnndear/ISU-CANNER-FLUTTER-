@@ -1,5 +1,7 @@
 // lib/pages/client_homepage.dart
 
+
+
 import 'package:flutter/material.dart';
 import 'package:isu_canner/screens/home_screen.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -7,14 +9,15 @@ import '../../style/custom_app_bar.dart';
 import '../../style/custom_bottom_navigation.dart';
 import '../../style/custom_drawer.dart';
 import '../../style/menu_page.dart';
- // Import the new file
+
+
 import '../../model/user.dart';
 import '../../services/logout.dart';
 
 class ClientHomepage extends StatefulWidget {
   final User user;
 
-  const ClientHomepage({Key? key, required this.user}) : super(key: key);
+  const ClientHomepage({super.key, required this.user});
 
   @override
   State<ClientHomepage> createState() => _ClientHomepageState();
@@ -37,17 +40,18 @@ class _ClientHomepageState extends State<ClientHomepage> {
     ]);
   }
 
-  // Function to build the Home page content
   Widget _buildHomePage() {
-    String userDetails = 'Name: ${widget.user.firstname} ${widget.user.lastname}\n'
+    String userDetails = 'ID: ${widget.user.id}'
         'Email: ${widget.user.email}';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center, // Center the column vertically
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center, // Center the column vertically
             children: [
               const Text(
                 'Welcome',
@@ -66,34 +70,12 @@ class _ClientHomepageState extends State<ClientHomepage> {
             ],
           ),
         ),
-        Expanded(
-          child: Center(
-            child: Transform.translate(
-              offset: const Offset(0, -100),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Hello, ${widget.user.firstname} ${widget.user.lastname}'),
-                  const SizedBox(height: 20),
-                  QrImageView(
-                    data: userDetails,
-                    version: QrVersions.auto,
-                    size: 200.0,
-                  ),
-                  const SizedBox(height: 20),
-                  const Text('Scan this QR code for user details'),
-                ],
-              ),
-            ),
-          ),
-        ),
       ],
     );
   }
 
-  // Function to build the Notification page content
   Widget _buildNotificationPage() {
-    return Center(
+    return const Center(
       child: Text(
         'Notifications',
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -101,20 +83,8 @@ class _ClientHomepageState extends State<ClientHomepage> {
     );
   }
 
-  // Function to build the Menu page content
   Widget _buildMenuPage() {
-    return MenuPage(
-      onProfileSelected: () {
-        // Navigate to Profile page or perform profile action
-      },
-      onHelpSelected: () {
-        // Navigate to Help & Support page or perform help action
-      },
-      onSettingsSelected: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()), // Replace with your actual Settings & Privacy page
-        );      },
+    return MenuPage( 
       onLogoutSelected: () async {
         await logout(context);
       },

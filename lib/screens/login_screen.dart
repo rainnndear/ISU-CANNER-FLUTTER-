@@ -107,7 +107,7 @@ Future<void> _saveAndRedirectToHome(User user) async {
 
   AppBar _buildAppBar() {
     return AppBar(
-      automaticallyImplyLeading: false,  // Removes the back button
+      automaticallyImplyLeading: false, 
       title: Row(
         children: [
           Image.asset(
@@ -267,7 +267,7 @@ Future<void> _saveAndRedirectToHome(User user) async {
                     decoration: TextDecoration.none, // No underline
                   ),
                   recognizer: TapGestureRecognizer()..onTap = () {
-                    Navigator.of(context).push(
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (_) => const RegistrationScreen()),
                     );
                   },

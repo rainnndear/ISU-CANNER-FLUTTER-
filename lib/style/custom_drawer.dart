@@ -1,5 +1,6 @@
-import '../screens/client/file.dart';
 import 'package:flutter/material.dart';
+import '../screens/client/track_document.dart';
+import 'task_list_widget.dart';
 
 class ClientCustomDrawer extends StatelessWidget {
   @override
@@ -22,49 +23,25 @@ class ClientCustomDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.menu_open_sharp),
-            title: Text('ACTIONS'),
-            onTap: () {
-              // Handle the tap here
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.manage_accounts),
-            title: Text('MANAGE ACCOUNT'),
+            title: const Text('ACTIONS'),
             onTap: () {
               // Handle the tap here
             },
           ),
           // Template section with dropdown
-          ExpansionTile(
+          const ExpansionTile(
             leading: Icon(Icons.content_copy),
             title: Text('TEMPLATE'),
             children: <Widget>[
-                ListTile(
-                title: const Text('Template 1'),
-                onTap: () {
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => File()),
-                  );
-                  Navigator.pop(context); // Close the drawer
-                },
-                ),
-              ListTile(
-                title: Text('Template 2'),
-                onTap: () {
-                  // Handle the tap for Template 2
-                  Navigator.pop(context); // Close the drawer
-                },
-              ),
-              // Add more ListTiles for additional templates
+              TaskListWidget(),
             ],
           ),
-          ListTile(
-            leading: Icon(Icons.fact_check),
+          const ExpansionTile(
+            leading: Icon(Icons.content_copy),
             title: Text('TRACK DOCUMENT'),
-            onTap: () {
-              // Handle the tap here
-            },
+            children: <Widget>[
+              TrackDocument(),
+            ],
           ),
           ListTile(
             leading: Icon(Icons.history),

@@ -4,7 +4,7 @@ import '../model/api_response.dart';
 import '../variables/ip_address.dart';
 import 'package:http/http.dart' as http;
 
-Future<ApiResponse> getFiles() async {
+Future<ApiResponse> getFiles(String? token) async {
 
   ApiResponse apiResponse = ApiResponse();
 
@@ -12,6 +12,11 @@ Future<ApiResponse> getFiles() async {
 
     final response = await http.get(
       Uri.parse('$ipaddress/client_file'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
     );
 
     switch(response.statusCode){
