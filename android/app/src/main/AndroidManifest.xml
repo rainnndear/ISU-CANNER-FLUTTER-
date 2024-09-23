@@ -61,7 +61,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="permission_handler_example"
+        android:label="ISU-CANNER"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity android:name="io.flutter.embedding.android.FlutterActivity"

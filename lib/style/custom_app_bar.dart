@@ -6,10 +6,10 @@ class ClientCustomAppBar extends StatelessWidget implements PreferredSizeWidget 
   final ValueChanged<bool> onSearchToggle; // Callback to handle search toggle
 
   const ClientCustomAppBar({
-    Key? key,
+    super.key,
     required this.isSearching,
     required this.onSearchToggle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

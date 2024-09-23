@@ -6,14 +6,14 @@ import '../model/api_response.dart';
 import '../model/user.dart';
 
 
-
 Future<ApiResponse> login(String email, String password) async {
   ApiResponse apiResponse = ApiResponse();
   try {
     final response = await http.post(
       Uri.parse('$ipaddress/login'),
       headers: {'Accept':'application/json'},
-      body: {'email':email, 'password':password}
+      body: {'email':email,
+       'password':password}
     );
 
     switch(response.statusCode){

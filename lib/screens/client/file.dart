@@ -56,7 +56,7 @@ class _UserState extends State<File> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
-        title: Text(
+        title: const Text(
           'PDF List',
           style: TextStyle(
             color: Colors.white,
@@ -80,7 +80,7 @@ class _UserState extends State<File> {
                       // Add your other widgets here
 
                       // Table headers
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Filepath', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -88,7 +88,7 @@ class _UserState extends State<File> {
                           Text('Type', style: TextStyle(fontWeight: FontWeight.bold)),
                         ],
                       ),
-                      Divider(), // Divider for table headers
+                      const Divider(), // Divider for table headers
 
                       // Table body
                       ListView.builder(
