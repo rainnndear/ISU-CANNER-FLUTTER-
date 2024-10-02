@@ -67,6 +67,7 @@ dev_dependencies:
   image_picker: ^1.1.2
   process_run: ^1.2.0
   qr_code_scanner: ^1.0.1
+  open_file: ^3.5.5
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

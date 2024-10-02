@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'task_list_widget.dart'; 
+import 'task_list_widget.dart';
 
 class ClientCustomDrawer extends StatelessWidget {
+  const ClientCustomDrawer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -28,9 +30,9 @@ class ClientCustomDrawer extends StatelessWidget {
             },
           ),
           // Template section with dropdown
-          const ExpansionTile(
-            leading: Icon(Icons.content_copy),
-            title: Text('TEMPLATE'),
+          ExpansionTile(
+            leading: const Icon(Icons.content_copy),
+            title: const Text('TEMPLATE'),
             children: <Widget>[
               TaskListWidget(),
             ],
@@ -43,8 +45,8 @@ class ClientCustomDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.history),
-            title: Text('TRANSACTION HISTORY'),
+            leading: const Icon(Icons.history),
+            title: const Text('TRANSACTION HISTORY'),
             onTap: () {
               // Handle the tap here
             },

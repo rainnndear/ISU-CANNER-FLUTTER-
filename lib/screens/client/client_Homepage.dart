@@ -1,5 +1,3 @@
-// lib/pages/client_homepage.dart
-
 import 'package:flutter/material.dart';
 import 'package:isu_canner/screens/home_screen.dart';
 import 'package:qr_flutter/qr_flutter.dart';
